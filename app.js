@@ -7,7 +7,8 @@ var express     = require("express"),
     LocalStrategy = require("passport-local"),
     methodOverride = require("method-override"),
     Task     = require("./models/task"),
-    User        = require("./models/user")
+    User        = require("./models/user"),
+    seedDB      = require("./seeds")
 
 // requiring routes
 var taskRoutes       = require("./routes/tasks"),
@@ -21,6 +22,7 @@ app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
 app.use(methodOverride("_method"));
 app.use(flash());
+seedDB(); // seeding the database
 
 // passport configuration
 app.use(require("express-session")({
@@ -63,5 +65,5 @@ app.listen(port, (err) => {
 // ONLINE
 
 app.listen(process.env.PORT, process.env.IP, function(){
-    console.log("ScratchPad Server has started!");
+    console.log("Columns Server has started!");
 });

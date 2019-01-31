@@ -5,10 +5,66 @@
    <h1>Index | Tasks</h1>
    <ul class="list-group" id="taskList">
       <% tasks.forEach(function(task){ %>
-     <li class="list-group-item" draggable="true"><%= task.title %></li>
+     <li class="list-group-item" draggable="true" data-id="<%= task.id %>"><%= task.title %>
+        <span class="float-right"><a href="#"><i class="fas fa-times fa-lg"></i></a></span>
+     </li>
+     
       <% }); %>
    </ul>
   </div>
+  <div class="input-group input-group-sm mb-3">
+  <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="add new Task">
+</div>
 
 </main><!-- /.container -->
+<script>
+/*	$("#taskList").sortable({
+      placeholder: "ui-state-highlight",
+      opacity: 0.6,
+      update: function(event, ui) {
+         console.log("UPDATE LIST")
+         var itemEl = evt.item;  // dragged HTMLElement
+		   var list_item = $(this);
+         evt.to;    // target list
+		   evt.from;  // previous list
+		   evt.oldIndex;  // element's old index within old parent
+		   var listPosition = evt.newIndex;  // element's new index within new parent
+		   var name = itemEl.innerHTML;
+		   var taskId = list_item.attr('data-taskId');
+		   console.log(taskId);
+		   $.ajax({
+            method: "POST",
+            url: "/tasks/" + taskId + "/?_method=PUT",
+            data: {name: name, listPosition: listPosition},
+            success: function(result) {
+            }
+        });
+       }
+   });
+   */
+$("ul#taskList").sortable({
+    pull: 'clone',
+    animation: 150,
+     onEnd: function (/**Event*/evt) {
+		var itemEl = evt.item;  // dragged HTMLElement
+		evt.to;    // target list
+		evt.from;  // previous list
+		evt.oldIndex;  // element's old index within old parent
+		var list_item = $(this);
+		var listPosition = evt.newIndex;  // element's new index within new parent
+		var name = itemEl.innerHTML;
+		var taskId = list_item.attr('data-taskid');
+		$.ajax({
+            method: "POST",
+            url: "/tasks/" + taskId + "/?_method=PUT",
+            data: {name: name, listPosition: listPosition},
+            success: function(result) {
+                console.log("here is the ajax call ID:  " + itemEl.dataset);
+                
+            }
+        });
+	},
+});
+</script>
+
 <% include ./partials/footer %>

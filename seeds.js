@@ -3,13 +3,16 @@ var Task = require("./models/task");
 
 var data = [
     {
-        title: "Menu für den Superbowl mit Chris und Bernd abstimmen"
+        title: "Menu für den Superbowl mit Chris und Bernd abstimmen",
+        listPosition: 3
     },
     {
-        title: "Save list reorder in mongodb"
-    },
+        title: "Save list reorder in mongodb",
+        listPosition: 2
+    },  
     {
-        title: "Check in mit Sonja"
+        title: "Check in mit Sonja",
+        listPosition: 1
     }
 ];
 

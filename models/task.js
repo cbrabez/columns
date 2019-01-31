@@ -1,7 +1,8 @@
 var mongoose = require("mongoose");
 
 var taskSchema = mongoose.Schema({
-   title: String
+   title: String,
+   listPosition: Number
    /*project: {
         id: {
             type: mongoose.Schema.Types.ObjectId,

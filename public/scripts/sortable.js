@@ -10,8 +10,15 @@ Sortable.create(taskList, {
 		evt.to;    // target list
 		evt.from;  // previous list
 		evt.oldIndex;  // element's old index within old parent
-		evt.newIndex;  // element's new index within new parent
-		console.log(itemEl.innerHTML + " dropped at position:   " + evt.newIndex);
+		var listPosition = evt.newIndex;  // element's new index within new parent
+		var name = itemEl.innerHTML;
+		$.ajax({
+            method: "POST",
+            url: "/tasks/" + taskId + "/?_method=PUT",
+            data: {name: name, listPosition: listPosition},
+            success: function(result) {
+            }
+        });
 	},
    
 });

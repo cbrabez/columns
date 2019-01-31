@@ -13,7 +13,7 @@ router.get("/", function(req, res){
 // INDEX - show all tasks
 router.get("/", function(req, res){
     // Get all tasks from DB
-    Task.find({}).sort({date: 'descending'}).exec(function(err, allTasks) {
+    Task.find({}).sort({listPosition: 'ascending'}).exec(function(err, allTasks) {
         if(err){
             console.log(err);
         } else {
@@ -22,23 +22,32 @@ router.get("/", function(req, res){
             });
 });
 
-// UPDATE - update one task
-// UPDATE Task ROUTE
+// UPDATE - update one task and task position
 router.put("/:id", function(req, res){
     console.log("YOU HIT THE UPDATE ROUTE");
     var name = req.body.name;
     var listPosition = req.body.listPosition;
     
    var newTask = {name: name, listPosition: listPosition};
-   
+   console.log("The updated task is: " + newTask.name + " " + newTask.listPosition);
     // find and update correct task
     Task.findByIdAndUpdate(req.params.id, newTask, function(err, updatedTask){
         if(err){
             res.redirect("/");
         } else {
-            res.redirect("/tasks");
-            console.log(updatedTask);
-        }
+            Task.find({id: { $ne: req.params.id } }, function(err, tasksToUpdate){
+                if(err){
+                    res.redirect("/");
+                } else {
+                    tasksToUpdate.forEach(function(task){
+                        task.listPosition = task.listPosition + 1;
+                        console.log("Update for:    " + task.name + " position    " + task.listPosition);
+                        task.save();
+                    });
+                    res.redirect("/tasks");
+                }
+            });
+        }              
     });
 });
 

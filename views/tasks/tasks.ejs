@@ -1,4 +1,4 @@
-<% include ./partials/header %>
+<% include ../partials/header %>
   
 <main role="main" class="container">
   <div class="tasks">
@@ -6,9 +6,8 @@
    <ul class="list-group" id="taskList">
       <% tasks.forEach(function(task){ %>
      <li class="list-group-item" draggable="true" data-id="<%= task.id %>"><%= task.title %>
-        <span class="float-right"><a href="#"><i class="fas fa-times fa-lg"></i></a></span>
+        <span class="delete-task float-right"><a><i class="fi-x"></i></a></span>
      </li>
-     
       <% }); %>
    </ul>
   </div>
@@ -26,10 +25,9 @@ $("ul#taskList").sortable({
 		evt.to;    // target list
 		evt.from;  // previous list
 		evt.oldIndex;  // element's old index within old parent
-		var list_item = $(this);
 		var listPosition = evt.newIndex;  // element's new index within new parent
 		var name = itemEl.innerHTML;
-		var taskId = list_item.attr('data-taskid');
+		var taskId = itemEl.getAttribute("data-id");
 		$.ajax({
             method: "POST",
             url: "/tasks/" + taskId + "/?_method=PUT",
@@ -42,4 +40,4 @@ $("ul#taskList").sortable({
 });
 </script>
 
-<% include ./partials/footer %>
+<% include ../partials/footer %>

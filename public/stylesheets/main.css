@@ -17,6 +17,7 @@ body {
 :-ms-input-placeholder {  
    text-align: center; 
 }
+
 [draggable] {
   -moz-user-select: none;
   -khtml-user-select: none;

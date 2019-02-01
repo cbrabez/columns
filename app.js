@@ -48,7 +48,7 @@ app.use("/", indexRoutes);
 app.use("/tasks", taskRoutes);
 
 // Server Setup
-
+/*
 // OFFLINE
 const port = 3000;
 
@@ -59,11 +59,9 @@ app.listen(port, (err) => {
 
   console.log(`server is listening on ${port}`)
 })
-
+*/
 
 // ONLINE
-/*
 app.listen(process.env.PORT, process.env.IP, function(){
     console.log("Columns Server has started!");
 });
-*/

@@ -7,7 +7,7 @@
   <div class="row">
       <div class="col-12">
          <ul class="list-group" id="taskList">
-            <% tasks.forEach(function(task){ %>
+            <% tasksToProject.forEach(function(task){ %>
            <li class="list-group-item" draggable="true" data-id="<%= task.id %>"><%= task.title %>
               <span class="delete-task float-right"><a href="#"><i class="fas fa-times fa-lg"></i></a></span>
            </li>
@@ -24,16 +24,13 @@
 </div> <!-- .content-wrapper -->
 </main><!-- .cd-main-content -->
 <script>
-$(".task-entry").on('keypress',function(e) {
-    var task = $('.task-input').val();
-    if(e.which == 13) {
-          addTask(task);
-    }
-});
 
 $('button').click(function(e) {
    var task = $('.task-input').val();
-   addTask(task);
+   var url = window.location.pathname;
+   var projectId = url.substring(url.lastIndexOf('/') + 1);
+   console.log(projectId);
+   addTask(task, projectId);
  });
 
 // delete task on button click

@@ -1,5 +1,17 @@
 body {
+  font-size: 1.6rem;
+  font-family: 'Open Sans', sans-serif;
+  color: #3e454c;
+  background-color: #ffffff;
   padding-top: 5rem;
+}
+
+.task-input, #addTask{
+  font-size: 1.6rem; 
+}
+
+.task-entry{
+   padding-top: 2em;
 }
 
 ::-webkit-input-placeholder {

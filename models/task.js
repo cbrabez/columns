@@ -2,14 +2,15 @@ var mongoose = require("mongoose");
 
 var taskSchema = mongoose.Schema({
    title: String,
-   listPosition: Number
-   /*project: {
+   listPosition: Number,
+   project: {
         id: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "Project"
         },
-        name: String
-   },
+        title: String
+   }
+   /*
    dueDate: Date,
    author: {
         id: {

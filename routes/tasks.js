@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
 var Task = require("../models/task");
+var Project = require("../models/project");
 var middleware = require("../middleware");
 
 /*
@@ -17,9 +18,16 @@ router.get("/", function(req, res){
         if(err){
             console.log(err);
         } else {
-           res.render("tasks/tasks", {tasks: allTasks});    
+            Project.find({}).exec(function(err, allProjects) {
+                if(err){
+                    console.log(err);        
+                } else {
+                    res.render("tasks/tasks", {tasks: allTasks, projects: allProjects});        
                 }
             });
+           
+        }
+    });
 });
 
 // UPDATE - update one task and task position
@@ -65,7 +73,9 @@ router.post("/", function(req, res){
         } else{
             var listPosition = taskCount+1;
             var title = req.body.title;
-            var newTask = {title: title, listPosition: listPosition};
+            var projectId = req.body.projectId;
+            var newTask = {title: title, listPosition: listPosition, project: {id: projectId}};
+            console.log(newTask);
             Task.create(newTask, function(err, newlyCreated){
                if(err){
                    console.log(err);

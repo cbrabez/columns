@@ -35,6 +35,7 @@ router.put("/:id", function(req, res){
     console.log("YOU HIT THE UPDATE ROUTE");
     var title = (req.body.title).split("<")[0];
     var listPosition = req.body.listPosition;
+    var newTaskOldPosition = req.body.oldPosition;
     
    var newTask = {title: title, listPosition: listPosition};
    console.log("The updated task is: " + newTask.title + " " + newTask.listPosition);
@@ -49,14 +50,22 @@ router.put("/:id", function(req, res){
                 } else {
                     
                     tasksToUpdate.forEach(function(task){
-                        if(task.listPosition < newTask.listPosition){
-                            return;
-                        } else {
+                        if(task.listPosition < newTaskOldPosition && task.listPosition >= newTask.listPosition){
                             task.listPosition = task.listPosition + 1;
                             console.log("ID looking to match is:        " + req.params.id);
                             console.log("Update for ID: " + task.id + "@ position   " + task.listPosition);
                             task.save();
-                        }
+                            
+                        } else if(task.listPosition > newTaskOldPosition && task.listPosition <= newTask.listPosition){
+                            task.listPosition = task.listPosition - 1;
+                            console.log("ID looking to match is:        " + req.params.id);
+                            console.log("Update for ID: " + task.id + "@ position   " + task.listPosition);
+                            task.save();
+                            }
+                            else {
+                            return;
+                            }
+                        
                     });
                     res.redirect("/tasks");
                 }

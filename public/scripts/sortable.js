@@ -20,5 +20,4 @@ Sortable.create(taskList, {
             }
         });
 	},
-   
 });

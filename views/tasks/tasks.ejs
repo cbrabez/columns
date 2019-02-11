@@ -6,15 +6,15 @@
 
   <div class="row">
       <div class="col-12">
-         <ul class="list-group" id="taskList">
-            <% tasks.forEach(function(task){ %>
-           <li class="list-group-item" draggable="true" data-id="<%= task.id %>"><%= task.title %>
-              <span class="delete-task float-right"><a href="#"><i class="fas fa-times fa-lg"></i></a></span>
-           </li>
-            <% }); %>
-         </ul>
-      </div>
-   </div>
+            <ul class="list-group" id="taskList">
+               <% tasks.forEach(function(task){ %>
+              <li class="list-group-item" draggable="true" data-id="<%= task.id %>"><%= task.title %>
+                 <span class="delete-task float-right"><a href="#"><i class="fas fa-times fa-lg"></i></a></span>
+              </li>
+               <% }); %>
+            </ul>
+         </div>
+    </div>
    <div class="input-group task-entry">
       <input type="text" class="form-control task-input" placeholder="Title of new task" aria-label="Title of new task" aria-describedby="button-addon2">
       <div class="input-group-append add-btn">
@@ -53,6 +53,28 @@ $('button').click(function(e) {
          }
       });
  });
+
+// make task list sortable and save position of list-item in db
+$("ul#taskList").sortable({
+    pull: 'clone',
+    animation: 150,
+     onEnd: function (/**Event*/evt) {
+		var itemEl = evt.item;  // dragged HTMLElement
+		evt.to;    // target list
+		evt.from;  // previous list
+		var oldPosition = evt.oldIndex+1;  // element's old index within old parent
+		var listPosition = evt.newIndex+1;  // element's new index within new parent
+		var title = itemEl.innerHTML;
+		var taskId = itemEl.getAttribute("data-id");
+		$.ajax({
+            method: "POST",
+            url: "/tasks/" + taskId + "/?_method=PUT",
+            data: {title: title, listPosition: listPosition, oldPosition: oldPosition},
+            success: function(result) {
+            }
+        });
+	},
+});
 </script>
 
 <% include ../partials/footer %>

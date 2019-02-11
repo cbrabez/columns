@@ -6,6 +6,7 @@
 
   <div class="row">
       <div class="col-12">
+         <h2 id="projectTitle"></h2>
          <ul class="list-group" id="taskList">
             <% tasksToProject.forEach(function(task){ %>
            <li class="list-group-item" draggable="true" data-id="<%= task.id %>"><%= task.title %>
@@ -24,6 +25,23 @@
 </div> <!-- .content-wrapper -->
 </main><!-- .cd-main-content -->
 <script>
+
+$(function(){
+   var url = window.location.pathname;
+   var projectId = url.substring(url.lastIndexOf('/') + 1);
+   $("ul").find("[data-id='" + projectId + "']").addClass("active");
+   var project_title = $('.active').text();
+   $("#projectTitle").html("Project   |  " + project_title);
+});
+
+$(".task-entry").on('keypress',function(e) {
+   var task = $('.task-input').val();
+   var url = window.location.pathname;
+   var projectId = url.substring(url.lastIndexOf('/') + 1);
+   if(e.which == 13) {
+      addTask(task, projectId);
+   }
+});
 
 $('button').click(function(e) {
    var task = $('.task-input').val();
@@ -50,6 +68,28 @@ $('button').click(function(e) {
          }
       });
  });
+ 
+ // make task list sortable and save position of list-item in db
+$("ul#taskList").sortable({
+    pull: 'clone',
+    animation: 150,
+     onEnd: function (/**Event*/evt) {
+		var itemEl = evt.item;  // dragged HTMLElement
+		evt.to;    // target list
+		evt.from;  // previous list
+		var oldPosition = evt.oldIndex+1;  // element's old index within old parent
+		var listPosition = evt.newIndex+1;  // element's new index within new parent
+		var title = itemEl.innerHTML;
+		var taskId = itemEl.getAttribute("data-id");
+		$.ajax({
+            method: "POST",
+            url: "/tasks/" + taskId + "/?_method=PUT",
+            data: {title: title, listPosition: listPosition, oldPosition: oldPosition},
+            success: function(result) {
+            }
+        });
+	},
+});
 </script>
 
 <% include ../partials/footer %>

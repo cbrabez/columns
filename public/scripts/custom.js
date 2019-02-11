@@ -149,7 +149,7 @@ $(function(){
 function addTask(task, projectId){
     var new_task = task;
     var projectId = projectId;
-    console.log(projectId);
+    console.log(projectId)
       $.ajax({
          method: "POST",
          url: "/tasks",
@@ -194,26 +194,6 @@ $('button').click(function(e) {
       deleteTask(id);
    });
 
-// make task list sortable and save position of list-item in db
-$("ul#taskList").sortable({
-    pull: 'clone',
-    animation: 150,
-     onEnd: function (/**Event*/evt) {
-		var itemEl = evt.item;  // dragged HTMLElement
-		evt.to;    // target list
-		evt.from;  // previous list
-		evt.oldIndex;  // element's old index within old parent
-		var listPosition = evt.newIndex+1;  // element's new index within new parent
-		var title = itemEl.innerHTML;
-		var taskId = itemEl.getAttribute("data-id");
-		$.ajax({
-            method: "POST",
-            url: "/tasks/" + taskId + "/?_method=PUT",
-            data: {title: title, listPosition: listPosition},
-            success: function(result) {
-            }
-        });
-	},
-});
+
 
 

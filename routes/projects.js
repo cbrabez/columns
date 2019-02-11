@@ -19,7 +19,7 @@ router.get("/:id", function(req, res){
                          if(err){
                              console.log(err);        
                          } else {
-                             Task.find({'project.id': req.params.id}, function(err, tasksToProject){
+                             Task.find({'project.id': req.params.id}).sort({listPosition: 'ascending'}).exec(function(err, tasksToProject){
                                     if(err){
                                         console.log(err);        
                                     } else {

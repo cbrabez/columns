@@ -34,4 +34,42 @@ router.get("/:id", function(req, res){
     });
 });
 
+// UPDATE - update one task and task position
+router.put("/:id", function(req, res){
+    console.log("YOU HIT THE Project UPDATE ROUTE");
+    var title = (req.body.title).split("<")[0];
+    var updateProject = {title: title,};
+    // find and update correct task
+    Project.findByIdAndUpdate(req.params.id, updateProject, function(err, updatedProject){
+        if(err){
+            res.redirect("/");
+        } else {
+            console.log(updatedProject);
+            res.redirect("/projects");
+        }              
+    });
+});
+
+
+// CREATE - add new project to DB
+router.post("/", function(req, res){
+   var title = req.body.title;
+   console.log
+   //var content = req.body.content;
+   /*var author = {
+       id: req.user._id,
+       username: req.user.username
+   };
+   */
+   var newProject = {title: title};
+   Project.create(newProject, function(err, newlyCreated){
+      if(err){
+          console.log(err);
+      } else {
+          console.log(newlyCreated);
+          //res.redirect("/projects");
+      }
+   });
+});
+
 module.exports = router;

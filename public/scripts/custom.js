@@ -159,7 +159,22 @@ function addTask(task, projectId){
            location.reload(true);
          }
       });
-};
+}
+
+function updateTask(id, date){
+	var taskId = id;
+	var dueDate = date;
+      $.ajax({
+         method: "POST",
+         url: "/tasks/" + taskId + "/?_method=PUT",
+         data: {id: taskId, dueDate: dueDate},
+         success: function(result) {
+           console.log("SUCCESS UPDATE");
+           location.reload(true);
+         }
+      });	
+}
+
 
 deleteTask = function(id){
    var taskId = id;
@@ -174,6 +189,33 @@ deleteTask = function(id){
       });
 }
 
+function addProject(project){
+   var new_project = project;
+   console.log("Trying ajax post for project:	" + new_project);
+   $.ajax({
+      method: "POST",
+      url: "/projects",
+      data: {title: new_project},
+      success: function(result) {
+        console.log("SUCCESS ADDING PROJECT");
+        location.reload(true);
+      }
+   });
+}
+
+function updateProject(id, title){
+	var projectId = id;
+	var title = title;
+      $.ajax({
+         method: "POST",
+         url: "/projects/" + projectId + "/?_method=PUT",
+         data: {id: projectId, title: title},
+         success: function(result) {
+           console.log("SUCCESS UPDATE");
+           location.reload(true);
+         }
+      });	
+}
 
 // add task with Enter-Key in input field
 $(".task-entry").on('keypress',function(e) {

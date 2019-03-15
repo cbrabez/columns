@@ -9,8 +9,8 @@ var taskSchema = mongoose.Schema({
             ref: "Project"
         },
         title: String
-   }
-   /*
+   },
+   
    dueDate: Date,
    author: {
         id: {
@@ -19,7 +19,7 @@ var taskSchema = mongoose.Schema({
         },
         username: String
    }
-   */
+   
 });
 
 module.exports = mongoose.model("Task", taskSchema);

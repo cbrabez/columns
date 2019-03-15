@@ -1,0 +1,191 @@
+<% include ../partials/header %>
+<div class="content-wrapper">
+      
+   <div class="row">
+   <div class="col-md-5ths col-xs-6">
+     <span>Items for this week</span>
+     <ul id="listActionItems" class="list-group">
+            <% tasksNotScheduled.forEach(function(task){ %>
+               <li class="list-group-item"><%= task.title %></li>
+            <% }); %>
+      </ul>
+   </div>
+    <div class="col-md-5ths col-xs-6">
+        <span>Monday</span>
+        <ul id="listMonday" class="list-group">
+            <% tasksMonday.forEach(function(task){ %>
+               <li class="list-group-item"><%= task.title %></li>
+            <% }); %>
+         </ul>
+    </div>
+    <div class="col-md-5ths col-xs-6">
+        <span>Tuesday</span>
+        <ul id="listTuesday" class="list-group">
+            <% tasksTuesday.forEach(function(task){ %>
+               <li class="list-group-item"><%= task.title %></li>
+            <% }); %>
+         </ul>
+    </div>
+    <div class="col-md-5ths col-xs-6">
+        <span>Wednesday</span>
+        <ul id="listWednesday" class="list-group">
+            <% tasksWednesday.forEach(function(task){ %>
+               <li class="list-group-item"><%= task.title %></li>
+            <% }); %>
+         </ul>
+    </div>
+    <div class="col-md-5ths col-xs-6">
+        <span>Thursday</span>
+        <ul id="listThursday" class="list-group">
+            <% tasksThursday.forEach(function(task){ %>
+               <li class="list-group-item"><%= task.title %></li>
+            <% }); %>
+         </ul>
+    </div>
+    <div class="col-md-5ths col-xs-6">
+        <span>Friday</span>
+        <ul id="listFriday" class="list-group">
+            <% tasksFriday.forEach(function(task){ %>
+               <li class="list-group-item"><%= task.title %></li>
+            <% }); %>
+         </ul>
+    </div>
+</div>
+</div> <!-- .content-wrapper -->
+</main><!-- .cd-main-content -->
+
+<script>
+ // make task list sortable and save position of list-item in db
+$("ul#listActionItems").sortable({
+    pull: 'clone',
+    animation: 150,
+    group: 'weekly', // set both lists to same group
+     onEnd: function (/**Event*/evt) {
+		var itemEl = evt.item;  // dragged HTMLElement
+		evt.to;    // target list
+		evt.from;  // previous list
+		var oldPosition = evt.oldIndex+1;  // element's old index within old parent
+		var listPosition = evt.newIndex+1;  // element's new index within new parent
+		var title = itemEl.innerHTML;
+		var taskId = itemEl.getAttribute("data-id");
+		$.ajax({
+            method: "POST",
+            url: "/tasks/" + taskId + "/?_method=PUT",
+            data: {title: title, listPosition: listPosition, oldPosition: oldPosition},
+            success: function(result) {
+            }
+        });
+	},
+});
+
+$("ul#listMonday").sortable({
+    pull: 'clone',
+    animation: 150,
+    group: 'weekly', // set both lists to same group
+     onEnd: function (/**Event*/evt) {
+		var itemEl = evt.item;  // dragged HTMLElement
+		evt.to;    // target list
+		evt.from;  // previous list
+		var oldPosition = evt.oldIndex+1;  // element's old index within old parent
+		var listPosition = evt.newIndex+1;  // element's new index within new parent
+		var title = itemEl.innerHTML;
+		var taskId = itemEl.getAttribute("data-id");
+		$.ajax({
+            method: "POST",
+            url: "/tasks/" + taskId + "/?_method=PUT",
+            data: {title: title, listPosition: listPosition, oldPosition: oldPosition},
+            success: function(result) {
+            }
+        });
+	},
+});
+
+$("ul#listTuesday").sortable({
+    pull: 'clone',
+    animation: 150,
+    group: 'weekly', // set both lists to same group
+     onEnd: function (/**Event*/evt) {
+		var itemEl = evt.item;  // dragged HTMLElement
+		evt.to;    // target list
+		evt.from;  // previous list
+		var oldPosition = evt.oldIndex+1;  // element's old index within old parent
+		var listPosition = evt.newIndex+1;  // element's new index within new parent
+		var title = itemEl.innerHTML;
+		var taskId = itemEl.getAttribute("data-id");
+		$.ajax({
+            method: "POST",
+            url: "/tasks/" + taskId + "/?_method=PUT",
+            data: {title: title, listPosition: listPosition, oldPosition: oldPosition},
+            success: function(result) {
+            }
+        });
+	},
+});
+
+$("ul#listWednesday").sortable({
+    pull: 'clone',
+    animation: 150,
+    group: 'weekly', // set both lists to same group
+     onEnd: function (/**Event*/evt) {
+		var itemEl = evt.item;  // dragged HTMLElement
+		evt.to;    // target list
+		evt.from;  // previous list
+		var oldPosition = evt.oldIndex+1;  // element's old index within old parent
+		var listPosition = evt.newIndex+1;  // element's new index within new parent
+		var title = itemEl.innerHTML;
+		var taskId = itemEl.getAttribute("data-id");
+		$.ajax({
+            method: "POST",
+            url: "/tasks/" + taskId + "/?_method=PUT",
+            data: {title: title, listPosition: listPosition, oldPosition: oldPosition},
+            success: function(result) {
+            }
+        });
+	},
+});
+
+$("ul#listThursday").sortable({
+    pull: 'clone',
+    animation: 150,
+    group: 'weekly', // set both lists to same group
+     onEnd: function (/**Event*/evt) {
+		var itemEl = evt.item;  // dragged HTMLElement
+		evt.to;    // target list
+		evt.from;  // previous list
+		var oldPosition = evt.oldIndex+1;  // element's old index within old parent
+		var listPosition = evt.newIndex+1;  // element's new index within new parent
+		var title = itemEl.innerHTML;
+		var taskId = itemEl.getAttribute("data-id");
+		$.ajax({
+            method: "POST",
+            url: "/tasks/" + taskId + "/?_method=PUT",
+            data: {title: title, listPosition: listPosition, oldPosition: oldPosition},
+            success: function(result) {
+            }
+        });
+	},
+});
+
+$("ul#listFriday").sortable({
+    pull: 'clone',
+    animation: 150,
+    group: 'weekly', // set both lists to same group
+     onEnd: function (/**Event*/evt) {
+		var itemEl = evt.item;  // dragged HTMLElement
+		evt.to;    // target list
+		evt.from;  // previous list
+		var oldPosition = evt.oldIndex+1;  // element's old index within old parent
+		var listPosition = evt.newIndex+1;  // element's new index within new parent
+		var title = itemEl.innerHTML;
+		var taskId = itemEl.getAttribute("data-id");
+		$.ajax({
+            method: "POST",
+            url: "/tasks/" + taskId + "/?_method=PUT",
+            data: {title: title, listPosition: listPosition, oldPosition: oldPosition},
+            success: function(result) {
+            }
+        });
+	},
+});
+</script>
+<% include ../partials/footer %>

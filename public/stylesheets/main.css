@@ -30,6 +30,11 @@ body {
    text-align: center; 
 }
 
+.datepicker{
+   float: right;
+   padding-right: 2em;
+}
+
 [draggable] {
   -moz-user-select: none;
   -khtml-user-select: none;
@@ -38,4 +43,37 @@ body {
   /* Required to make elements draggable in old WebKit */
   -khtml-user-drag: element;
   -webkit-user-drag: element;
+}
+
+.col-xs-5ths,
+.col-sm-5ths,
+.col-md-5ths,
+.col-lg-5ths {
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+.col-xs-5ths {
+    width: 15%;
+    float: left;
+}
+@media (min-width: 768px) {
+.col-sm-5ths {
+        width: 15%;
+        float: left;
+    }
+}
+@media (min-width: 992px) {
+    .col-md-5ths {
+        width: 15%;
+        float: left;
+    }
+}
+@media (min-width: 1200px) {
+    .col-lg-5ths {
+        width: 15%;
+        float: left;
+    }
 }

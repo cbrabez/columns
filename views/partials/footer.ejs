@@ -1,0 +1,25 @@
+   
+   <script>
+      $('.btn-add-project').click(function(e) {
+         var title = 'new project';
+         title = title.replace(/\t/g, '')
+         title = title.replace(/\n/g, '')
+         title = title.trim();
+         var newProject = new String(title);
+         //console.log("News Projekt anlegen mit Namen: " + newProject);
+         addProject(newProject);
+      });
+      
+       $('h2').focusout(function(e) {
+         var title = $('h2').text().replace(/\t/g, '');
+         title = title.replace(/\n/g, '')
+         //var newProject = new String(title);
+         title = title.trim();
+         var url = window.location.pathname;
+         var projectId = url.substring(url.lastIndexOf('/') + 1);
+         console.log("Projekt Update mit Namen: " + title);
+         updateProject(projectId, title);
+      });
+   </script>
+   </body>
+</html>

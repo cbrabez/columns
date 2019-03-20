@@ -45,36 +45,26 @@
 	<main class="cd-main-content">
 	  <div class="sidenav">
          <div class="login-main-text">
-            <h2>Application<br> Login Page</h2>
-            <p>Login or register from here to access.</p>
+            <h2>Columns<br>Registration Page</h2>
+            <p>Register from here to access.</p>
          </div>
       </div>
       <div class="main">
          <div class="col-md-6 col-sm-12">
             <div class="login-form">
-               <form>
+               <form action="/register" method="POST">
                   <div class="form-group">
                      <label>User Name</label>
-                     <input type="text" class="form-control" placeholder="User Name">
+                     <input type="text" class="form-control" name="username" placeholder="User Name">
                   </div>
                   <div class="form-group">
                      <label>Password</label>
-                     <input type="password" class="form-control" placeholder="Password">
+                     <input type="password" class="form-control" name="password" placeholder="Password">
                   </div>
-                  <button type="submit" class="btn btn-black">Login</button>
-                  <button type="submit" class="btn btn-secondary">Register</button>
+                  <button type="submit" class="btn btn-black">Register</button>
                </form>
             </div>
          </div>
       </div>
-
-  <main role="main" class="container">
-
-  <div class="starter-template">
-    <h1>Bootstrap starter template</h1>
-    <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
-  </div>
-
-  </main><!-- /.container -->
 
 <% include ./partials/footer %>

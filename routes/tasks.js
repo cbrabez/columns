@@ -21,13 +21,19 @@ function getShortDate(date){
     return newdate;
 }
 
+function addDays(date, days) {
+    var result = new Date(date);
+    result.setDate(result.getDate() + days);
+    return result;
+  }
+
 
 //var monday = getMonday(new Date())
 
 
 
 // INDEX - show all tasks
-router.get("/", function(req, res){
+router.get("/",middleware.isLoggedIn, function(req, res){
     // Get all tasks from DB
     Task.find({}).sort({listPosition: 'ascending'}).exec(function(err, allTasks) {
         if(err){
@@ -49,7 +55,6 @@ router.get("/", function(req, res){
 // weekly view
 router.get("/weeklyplan", middleware.isLoggedIn, function(req, res){
      // Get all tasks from DB
-     console.log(getShortDate(getMonday(new Date())));
     Task.find({'dueDate': ""}).sort({listPosition: 'ascending'}).exec(function(err, tasksNotScheduled) {
         if(err){
             console.log(err);
@@ -62,26 +67,28 @@ router.get("/weeklyplan", middleware.isLoggedIn, function(req, res){
                          if(err){
                              console.log(err);        
                          } else {
-                             ;
+                            console.log("Date 4 Monday:     " + getShortDate(getMonday(new Date())));
                              Task.find({'dueDate': getShortDate(getMonday(new Date()))}).sort({listPosition: 'ascending'}).exec(function(err, tasksMonday){
                                     if(err){
                                         console.log(err);        
                                     } else {
-                                        //console.log("Tasks for Monday:  " + tasksMonday);
-                                        Task.find({'dueDate': ""}).sort({listPosition: 'ascending'}).exec(function(err, tasksTuesday){
+                                        console.log("Date 4 Tuesday:     " + getShortDate(addDays(getMonday(new Date()), 1)));
+                                        Task.find({'dueDate': getShortDate(addDays(getMonday(new Date()), 1))}).sort({listPosition: 'ascending'}).exec(function(err, tasksTuesday){
                                             if(err){
                                                 console.log(err);        
                                             } else {
-                                                 //console.log("Tasks for Tuesday:  " + tasksTuesday);
-                                                Task.find({'dueDay': "Wednesday"}).sort({listPosition: 'ascending'}).exec(function(err, tasksWednesday){
+                                                console.log("Date 4 Wednesday:     " + getShortDate(addDays(getMonday(new Date()), 2)));
+                                                Task.find({'dueDay': getShortDate(addDays(getMonday(new Date()), 2))}).sort({listPosition: 'ascending'}).exec(function(err, tasksWednesday){
                                                     if(err){
                                                         console.log(err);        
                                                     } else {
-                                                        Task.find({'dueDay': "Thursday"}).sort({listPosition: 'ascending'}).exec(function(err, tasksThursday){
+                                                        console.log("Date 4 Thursday:     " + getShortDate(addDays(getMonday(new Date()), 3)));
+                                                        Task.find({'dueDay': getShortDate(addDays(getMonday(new Date()), 3))}).sort({listPosition: 'ascending'}).exec(function(err, tasksThursday){
                                                             if(err){
                                                                 console.log(err);        
                                                             } else {
-                                                                Task.find({'dueDay': "Friday"}).sort({listPosition: 'ascending'}).exec(function(err, tasksFriday){
+                                                                console.log("Date 4 Friday:     " + getShortDate(addDays(getMonday(new Date()), 4)));
+                                                                Task.find({'dueDay': getShortDate(addDays(getMonday(new Date()), 4))}).sort({listPosition: 'ascending'}).exec(function(err, tasksFriday){
                                                                     if(err){
                                                                         console.log(err);        
                                                                     } else {
@@ -103,12 +110,13 @@ router.get("/weeklyplan", middleware.isLoggedIn, function(req, res){
     });
 });
 
+
 // Update date
 
 
 
 // UPDATE - update one task and task position
-router.put("/:id", function(req, res){
+router.put("/:id", middleware.isLoggedIn, function(req, res){
     console.log("YOU HIT THE UPDATE ROUTE");
     //var title = (req.body.title).split("<")[0];
     //var listPosition = req.body.listPosition;
@@ -155,7 +163,7 @@ router.put("/:id", function(req, res){
 });
 
 // CREATE - add new task to DB
-router.post("/", function(req, res){
+router.post("/", middleware.isLoggedIn, function(req, res){
    Task.count({}, function(err, taskCount) {
         if(err){
             console.log(err);
@@ -179,7 +187,7 @@ router.post("/", function(req, res){
 });
 
 // DESTROY TASK ROUTE
-router.delete("/:id", function(req, res){
+router.delete("/:id", middleware.isLoggedIn, function(req, res){
     Task.findByIdAndRemove(req.params.id, function(err, deletedTask){
         console.log("Trying to delete" + req.params.id);
         if(err){

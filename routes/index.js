@@ -1,13 +1,12 @@
 var express = require("express");
 var router = express.Router();
 var passport = require("passport");
- var User = require("../models/user");
+var User = require("../models/user");
 
 // root route
 router.get("/", function(req, res){
-   res.render("landing"); 
+   res.render("login"); 
 });
-
 
 
 // register form route
@@ -32,7 +31,7 @@ router.post("/register", function(req, res) {
 
 // login form route
 router.get("/login", function(req, res) {
-    res.render("login");
+    res.render("/tasks");
 });
 
 // handling login logic

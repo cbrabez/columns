@@ -9,7 +9,11 @@
          <h2 contentEditable="true" id="projectTitle"></h2>
          <ul class="list-group" id="taskList">
             <% tasksToProject.forEach(function(task){ %>
-           <li class="list-group-item" draggable="true" data-id="<%= task.id %>"><%= task.title %>
+            <div class="round">
+               <input type="checkbox" id="checkbox" />
+               <label for="checkbox"></label>
+            </div>
+           <li class="list-group-item list-item" draggable="true" data-id="<%= task.id %>"><%= task.title %>
                 <span class="delete-task float-right"><a href="#"><i class="fas fa-times fa-lg"></i></a></span>
                 <span class="datepicker"><input type="text" id ="datepicker<%= task.id %>"></input></span>
            </li>

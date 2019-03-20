@@ -10,12 +10,11 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
     
     <link rel="stylesheet" href="/stylesheets/reset.css">
-    <link rel="stylesheet" href="https://unpkg.com/js-datepicker/dist/datepicker.min.css">
     <!-- Bootstrap core CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <!-- custom CSS -->
     <link rel="stylesheet" href="/stylesheets/style.css">
-    <link rel="stylesheet" href="/stylesheets/main.css">
+    <link rel="stylesheet" href="/stylesheets/landing.css">
     <!-- including scripts -->
     <script defer src="https://use.fontawesome.com/releases/v5.6.3/js/solid.js" integrity="sha384-F4BRNf3onawQt7LDHDJm/hwm3wBtbLIfGk1VSB/3nn3E+7Rox1YpYcKJMsmHBJIl" crossorigin="anonymous"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.6.3/js/fontawesome.js" integrity="sha384-treYPdjUrP4rW5q82SnECO7TPVAz4bpas16yuE9F5o7CeBn2YYw1yr5oC8s8Mf8t" crossorigin="anonymous"></script>
@@ -37,35 +36,36 @@
 
 		<nav class="cd-nav">
 			<ul class="cd-top-nav">
-				<% if(!currentUser){ %>
-                        <li><a href="/login">Login</a></li>
-                        <li><a href="/register">Sign Up</a></li>
-                    <% } else { %>
-                        <li><a href="#">Signed In As <%= currentUser.username %></a></li>
-                        <li><a href="/logout">Logout</a></li>
-                    <% } %>
+				<li><a href="#0">Tour</a></li>
+				<li><a href="#0">Support</a></li>
 			</ul>
 		</nav>
 	</header> <!-- .cd-main-header -->
   
 	<main class="cd-main-content">
-	<nav class="cd-side-nav">
-		<ul>
-		 		<li class="cd-label">Views</li>
-		      <li class="has-children">
-					  <a class="view" href="/tasks/weeklyplan">Current Week</a>
-					</li>
-				</li>
-				<li class="cd-label">Projects</li>
-		      <% projects.forEach(function(project){ %>
-		      <li data-id="<%= project._id %>" class="has-children <%= project.title %>">
-					  <a class="project" href="/projects/<%= project._id %>"><%= project.title %></a>
-					</li>
-					<% }); %>
-				</li>
-		</ul>
-		<ul>
-            <li class="cd-label">Action</li>
-            <li class="action-btn btn-add-project"><a href="#0">Add Project</a></li>
-        </ul>
-	</nav>
+	  <div class="sidenav">
+         <div class="login-main-text">
+            <h2>Application<br> Login Page</h2>
+            <p>Login or register from here to access.</p>
+         </div>
+      </div>
+      <div class="main">
+         <div class="col-md-6 col-sm-12">
+            <div class="login-form">
+               <form action="/login" method="POST">
+                  <div class="form-group">
+                     <label>User Name</label>
+                     <input type="text" name="username" class="form-control" placeholder="User Name">
+                  </div>
+                  <div class="form-group">
+                     <label>Password</label>
+                     <input type="password" name="password"class="form-control" placeholder="Password">
+                  </div>
+                  <button type="submit" value="Login" class="btn btn-black">Login</button>
+                  <input type="button" class="btn btn-secondary" onclick="location.href='/register';" value="Register" />
+               </form>
+            </div>
+         </div>
+      </div>
+
+<% include ./partials/footer %>

@@ -5,7 +5,7 @@ var Project = require("../models/project");
 var middleware = require("../middleware");
 
 // INDEX - show all tasks
-router.get("/:id", function(req, res){
+router.get("/:id", middleware.isLoggedIn, function(req, res){
     // Get all tasks from DB
     Task.find({}).sort({listPosition: 'ascending'}).exec(function(err, allTasks) {
         if(err){
@@ -35,7 +35,7 @@ router.get("/:id", function(req, res){
 });
 
 // UPDATE - update one task and task position
-router.put("/:id", function(req, res){
+router.put("/:id", middleware.isLoggedIn, function(req, res){
     console.log("YOU HIT THE Project UPDATE ROUTE");
     var title = (req.body.title).split("<")[0];
     var updateProject = {title: title,};
@@ -52,7 +52,7 @@ router.put("/:id", function(req, res){
 
 
 // CREATE - add new project to DB
-router.post("/", function(req, res){
+router.post("/", middleware.isLoggedIn, function(req, res){
    var title = req.body.title;
    console.log
    //var content = req.body.content;

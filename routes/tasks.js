@@ -47,7 +47,7 @@ router.get("/", function(req, res){
 
 //'dueDate': new RegExp('^'+getShortDate(getMonday(new Date()))+'$', "i")
 // weekly view
-router.get("/weeklyplan", function(req, res){
+router.get("/weeklyplan", middleware.isLoggedIn, function(req, res){
      // Get all tasks from DB
      console.log(getShortDate(getMonday(new Date())));
     Task.find({'dueDate': ""}).sort({listPosition: 'ascending'}).exec(function(err, tasksNotScheduled) {

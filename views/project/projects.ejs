@@ -10,10 +10,13 @@
          <ul class="list-group" id="taskList">
             <% tasksToProject.forEach(function(task){ %>
             <div class="round">
-               <input type="checkbox" id="checkbox" />
-               <label for="checkbox"></label>
+               
             </div>
            <li class="list-group-item list-item" draggable="true" data-id="<%= task.id %>"><%= task.title %>
+                <span class="round">
+                <input type="checkbox" class="checkbox" id="checkbox<%= task.id %>" data-id="<%= task.id %>" />
+                <label for="checkbox<%= task.id %>"></label>
+                </span>
                 <span class="delete-task float-right"><a href="#"><i class="fas fa-times fa-lg"></i></a></span>
                 <span class="datepicker"><input type="text" id ="datepicker<%= task.id %>"></input></span>
            </li>
@@ -75,11 +78,6 @@ $('button').click(function(e) {
    addTask(task, projectId);
  });
 
-// delete task on button click
-   $(".delete-task").on('click', function(e){
-      var id = $(this).parent().attr('data-id');
-      deleteTask(id);
-   });
    
  $('.project-list-item').click(function(e) {
    var projectId = $(this).attr('data-projectId');
@@ -92,6 +90,13 @@ $('button').click(function(e) {
          }
       });
  });
+ 
+$('.checkbox').change(function() {
+    var taskId = $(this).attr("data-id");
+    console.log(taskId);
+        completeTask(taskId); 
+    
+});
  
  // make task list sortable and save position of list-item in db
 $("ul#taskList").sortable({

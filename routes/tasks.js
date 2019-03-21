@@ -121,9 +121,10 @@ router.put("/:id", middleware.isLoggedIn, function(req, res){
     //var title = (req.body.title).split("<")[0];
     //var listPosition = req.body.listPosition;
     var dueDate = req.body.dueDate;
+    var completed = req.body.completed;
    // var newTaskOldPosition = req.body.oldPosition;
     
-   var newTask = {/*title: title,*/ dueDate: dueDate, /*listPosition: listPosition*/};
+   var newTask = {/*title: title,*/ dueDate: dueDate, completed: completed /*listPosition: listPosition*/};
    console.log("The date of the updated task is: " + newTask.dueDate);
     // find and update correct task
     Task.findByIdAndUpdate(req.params.id, newTask, function(err, updatedTask){

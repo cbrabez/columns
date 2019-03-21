@@ -1,17 +1,4 @@
 $(function(){
-   // delete tasks on checkbox change
-   $(".checkbox").on('change', function(){
-         var taskId = $(this).parent().attr('data-id');
-         $.ajax({
-            method: "POST",
-            url: "/tasks/" + taskId + "/?_method=DELETE",
-            data: {id: taskId},
-            success: function(result) {
-                console.log("SUCCESS DELETE");
-                location.reload(true);
-            }
-         });
-   });
    // Responsive Navigation
 
 
@@ -146,6 +133,8 @@ $(function(){
    
 });
 
+/*		ENDE SORTED.JS		*/
+
 function addTask(task, projectId){
     var new_task = task;
     var projectId = projectId;
@@ -173,6 +162,20 @@ function updateTask(id, date){
            location.reload(true);
          }
       });	
+}
+
+function completeTask(id){
+    console.log("TASK COMPLETED	" + taskId);
+    var taskId = id;
+         $.ajax({
+            method: "POST",
+            url: "/tasks/" + taskId + "/?_method=PUT",
+            data: {id: taskId, completed: true},
+            success: function(result) {
+                console.log("SUCCESS COMPLETED");
+                location.reload(true);
+            }
+         });
 }
 
 

@@ -24,14 +24,14 @@ router.post("/register", function(req, res) {
         }
         passport.authenticate("local")(req, res, function(){
             req.flash("success", "Welcome to ScratchPad " + user.username);
-            res.redirect("/tasks");
+            res.redirect("tasks/tasks");
         });
     });
 });
 
 // login form route
 router.get("/login", function(req, res) {
-    res.render("/tasks");
+    res.render("tasks/tasks");
 });
 
 // handling login logic
@@ -46,7 +46,7 @@ router.post("/login", passport.authenticate("local",
 router.get("/logout", function(req, res) {
     req.logout();
     req.flash("success", "Logged you out!");
-    res.redirect("/tasks");
+    res.redirect("/tasks/tasks");
 });
 
 

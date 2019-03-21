@@ -39,6 +39,9 @@ body {
 
 .round {
   position: relative;
+  float: left;
+  padding-right: 2em;
+  
 }
 
 .round label {
@@ -79,6 +82,8 @@ body {
 .round input[type="checkbox"]:checked + label:after {
   opacity: 1;
 }
+
+
 
 /* End Checkbox Styling */
 

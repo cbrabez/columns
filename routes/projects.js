@@ -19,7 +19,7 @@ router.get("/:id", middleware.isLoggedIn, function(req, res){
                          if(err){
                              console.log(err);        
                          } else {
-                             Task.find({'project.id': req.params.id}).sort({listPosition: 'ascending'}).exec(function(err, tasksToProject){
+                             Task.find({$and:[{'project.id': req.params.id}, {'completed': {$ne: true}}]}).sort({listPosition: 'ascending'}).exec(function(err, tasksToProject){
                                     if(err){
                                         console.log(err);        
                                     } else {

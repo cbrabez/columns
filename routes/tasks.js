@@ -67,27 +67,22 @@ router.get("/weeklyplan", middleware.isLoggedIn, function(req, res){
                          if(err){
                              console.log(err);        
                          } else {
-                            console.log("Date 4 Monday:     " + getShortDate(getMonday(new Date())));
                              Task.find({'dueDate': getShortDate(getMonday(new Date()))}).sort({listPosition: 'ascending'}).exec(function(err, tasksMonday){
                                     if(err){
                                         console.log(err);        
                                     } else {
-                                        console.log("Date 4 Tuesday:     " + getShortDate(addDays(getMonday(new Date()), 1)));
                                         Task.find({'dueDate': getShortDate(addDays(getMonday(new Date()), 1))}).sort({listPosition: 'ascending'}).exec(function(err, tasksTuesday){
                                             if(err){
                                                 console.log(err);        
                                             } else {
-                                                console.log("Date 4 Wednesday:     " + getShortDate(addDays(getMonday(new Date()), 2)));
                                                 Task.find({'dueDay': getShortDate(addDays(getMonday(new Date()), 2))}).sort({listPosition: 'ascending'}).exec(function(err, tasksWednesday){
                                                     if(err){
                                                         console.log(err);        
                                                     } else {
-                                                        console.log("Date 4 Thursday:     " + getShortDate(addDays(getMonday(new Date()), 3)));
                                                         Task.find({'dueDay': getShortDate(addDays(getMonday(new Date()), 3))}).sort({listPosition: 'ascending'}).exec(function(err, tasksThursday){
                                                             if(err){
                                                                 console.log(err);        
                                                             } else {
-                                                                console.log("Date 4 Friday:     " + getShortDate(addDays(getMonday(new Date()), 4)));
                                                                 Task.find({'dueDay': getShortDate(addDays(getMonday(new Date()), 4))}).sort({listPosition: 'ascending'}).exec(function(err, tasksFriday){
                                                                     if(err){
                                                                         console.log(err);        
@@ -117,7 +112,6 @@ router.get("/weeklyplan", middleware.isLoggedIn, function(req, res){
 
 // UPDATE - update one task and task position
 router.put("/:id", middleware.isLoggedIn, function(req, res){
-    console.log("YOU HIT THE UPDATE ROUTE");
     //var title = (req.body.title).split("<")[0];
     //var listPosition = req.body.listPosition;
     var dueDate = req.body.dueDate;
@@ -125,7 +119,6 @@ router.put("/:id", middleware.isLoggedIn, function(req, res){
    // var newTaskOldPosition = req.body.oldPosition;
     
    var newTask = {/*title: title,*/ dueDate: dueDate, completed: completed /*listPosition: listPosition*/};
-   console.log("The date of the updated task is: " + newTask.dueDate);
     // find and update correct task
     Task.findByIdAndUpdate(req.params.id, newTask, function(err, updatedTask){
         if(err){
@@ -174,12 +167,10 @@ router.post("/", middleware.isLoggedIn, function(req, res){
             var dueDay = "someday";
             var projectId = req.body.projectId;
             var newTask = {title: title, listPosition: listPosition, dueDay: dueDay, project: {id: projectId}};
-            console.log(newTask);
             Task.create(newTask, function(err, newlyCreated){
                if(err){
                    console.log(err);
                } else {
-                   console.log(newlyCreated);
                    res.redirect("/tasks");
                }
             });
@@ -204,8 +195,6 @@ router.delete("/:id", middleware.isLoggedIn, function(req, res){
                             return;
                         } else {
                             task.listPosition = task.listPosition - 1;
-                            console.log("ID looking to match is:        " + req.params.id);
-                            console.log("Update for ID: " + task.id + "@ position   " + task.listPosition);
                             task.save();
                         }
                     });

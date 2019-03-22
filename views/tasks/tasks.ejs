@@ -38,6 +38,8 @@ $('button').click(function(e) {
 
 // delete task on button click
    $(".delete-task").on('click', function(e){
+    var $closest = $(this).closest('li');
+    $closest.fadeOut("slow").toggleClass("completed");
       var id = $(this).parent().attr('data-id');
       deleteTask(id);
    });
@@ -58,6 +60,7 @@ $('button').click(function(e) {
 $("ul#taskList").sortable({
     pull: 'clone',
     animation: 150,
+    touchStartThreshold: 5,
      onEnd: function (/**Event*/evt) {
 		var itemEl = evt.item;  // dragged HTMLElement
 		evt.to;    // target list

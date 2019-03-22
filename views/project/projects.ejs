@@ -6,13 +6,14 @@
 
   <div class="row">
       <div class="col-12">
+    
          <h2 contentEditable="true" id="projectTitle"></h2>
          <ul class="list-group" id="taskList">
             <% tasksToProject.forEach(function(task){ %>
             <div class="round">
                
             </div>
-           <li class="list-group-item list-item" draggable="true" data-id="<%= task.id %>"><%= task.title %>
+           <li class="list-group-item list-item show" draggable="true" data-id="<%= task.id %>"><%= task.title %>
                 <span class="round">
                 <input type="checkbox" class="checkbox" id="checkbox<%= task.id %>" data-id="<%= task.id %>" />
                 <label for="checkbox<%= task.id %>"></label>
@@ -45,7 +46,6 @@
         },
     });
     if($("#datepicker<%= task.id %>").is(':visible')){
-        console.log("im visi");
         var date = "<%= task.dueDate %>";
         picker<%= task.id %>.setDate(new Date(date));
     }
@@ -74,10 +74,8 @@ $('button').click(function(e) {
    var task = $('.task-input').val();
    var url = window.location.pathname;
    var projectId = url.substring(url.lastIndexOf('/') + 1);
-   console.log(projectId);
    addTask(task, projectId);
  });
-
    
  $('.project-list-item').click(function(e) {
    var projectId = $(this).attr('data-projectId');
@@ -85,17 +83,30 @@ $('button').click(function(e) {
          method: "GET",
          url: "/projects/" + projectId,
          success: function(result) {
-             console.log(result);
              //location.reload(true);
          }
       });
  });
- 
+
+// archive task on checkbox change
 $('.checkbox').change(function() {
     var taskId = $(this).attr("data-id");
-    console.log(taskId);
-        completeTask(taskId); 
+    var $closest = $(this).closest('li');
+    if ($(this).is(':checked')) {
+        $closest.fadeOut("slow").toggleClass("completed");
+        } else {
+        $closest.fadeIn("slow").toggleClass("completed");
+    }
+    completeTask(taskId); 
     
+});
+
+// delete task on button click
+$(".delete-task").on('click', function(e){
+    var $closest = $(this).closest('li');
+    $closest.fadeOut("slow").toggleClass("completed");
+    var id = $(this).parent().attr('data-id');
+    deleteTask(id);
 });
  
  // make task list sortable and save position of list-item in db

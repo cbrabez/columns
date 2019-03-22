@@ -31,7 +31,7 @@ router.post("/register", function(req, res) {
 
 // login form route
 router.get("/login", function(req, res) {
-    res.render("tasks/tasks");
+    res.render("login");
 });
 
 // handling login logic

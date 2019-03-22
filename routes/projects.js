@@ -36,7 +36,6 @@ router.get("/:id", middleware.isLoggedIn, function(req, res){
 
 // UPDATE - update one task and task position
 router.put("/:id", middleware.isLoggedIn, function(req, res){
-    console.log("YOU HIT THE Project UPDATE ROUTE");
     var title = (req.body.title).split("<")[0];
     var updateProject = {title: title,};
     // find and update correct task
@@ -44,7 +43,6 @@ router.put("/:id", middleware.isLoggedIn, function(req, res){
         if(err){
             res.redirect("/");
         } else {
-            console.log(updatedProject);
             res.redirect("/projects");
         }              
     });
@@ -54,7 +52,6 @@ router.put("/:id", middleware.isLoggedIn, function(req, res){
 // CREATE - add new project to DB
 router.post("/", middleware.isLoggedIn, function(req, res){
    var title = req.body.title;
-   console.log
    //var content = req.body.content;
    /*var author = {
        id: req.user._id,
@@ -66,8 +63,7 @@ router.post("/", middleware.isLoggedIn, function(req, res){
       if(err){
           console.log(err);
       } else {
-          console.log(newlyCreated);
-          //res.redirect("/projects");
+          
       }
    });
 });

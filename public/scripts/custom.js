@@ -144,12 +144,10 @@ function addTask(task, projectId){
          url: "/tasks",
          data: {title: new_task, projectId: projectId},
          success: function(result) {
-           console.log("SUCCESS ADD");
            location.reload(true);
          }
       });
 }
-
 function updateTask(id, date){
 	var taskId = id;
 	var dueDate = date;
@@ -158,7 +156,6 @@ function updateTask(id, date){
          url: "/tasks/" + taskId + "/?_method=PUT",
          data: {id: taskId, dueDate: dueDate},
          success: function(result) {
-           console.log("SUCCESS UPDATE");
            location.reload(true);
          }
       });	
@@ -172,8 +169,6 @@ function completeTask(id){
             url: "/tasks/" + taskId + "/?_method=PUT",
             data: {id: taskId, completed: true},
             success: function(result) {
-                console.log("SUCCESS COMPLETED");
-                location.reload(true);
             }
          });
 }
@@ -186,8 +181,6 @@ deleteTask = function(id){
          url: "/tasks/" + taskId + "/?_method=DELETE",
          data: {id: taskId},
          success: function(result) {
-             console.log("SUCCESS DELETE");
-             location.reload(true);
          }
       });
 }
@@ -200,7 +193,6 @@ function addProject(project){
       url: "/projects",
       data: {title: new_project},
       success: function(result) {
-        console.log("SUCCESS ADDING PROJECT");
         location.reload(true);
       }
    });
@@ -214,7 +206,6 @@ function updateProject(id, title){
          url: "/projects/" + projectId + "/?_method=PUT",
          data: {id: projectId, title: title},
          success: function(result) {
-           console.log("SUCCESS UPDATE");
            location.reload(true);
          }
       });	
@@ -227,18 +218,15 @@ $(".task-entry").on('keypress',function(e) {
           addTask(task);
     }
 });
-// add task with click on "Add" button
+//add task with click on "Add" button
 $('button').click(function(e) {
    var task = $('.task-input').val();
    addTask(task);
  });
- 
+
 // delete task on button click
    $(".delete-task").on('click', function(e){
       var id = $(this).parent().attr('data-id');
       deleteTask(id);
    });
-
-
-
-
+ 

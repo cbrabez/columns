@@ -112,6 +112,7 @@ $(".delete-task").on('click', function(e){
  // make task list sortable and save position of list-item in db
 $("ul#taskList").sortable({
     pull: 'clone',
+    delay: 100,
     animation: 150,
      onEnd: function (/**Event*/evt) {
 		var itemEl = evt.item;  // dragged HTMLElement

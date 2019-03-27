@@ -8,7 +8,7 @@
       <div class="col-12">
             <ul class="list-group" id="taskList">
                <% tasks.forEach(function(task){ %>
-              <li class="list-group-item" draggable="true" data-id="<%= task.id %>"><%= task.title %>
+              <li class="list-group-item" data-id="<%= task.id %>"><%= task.title %>
                  <span class="delete-task float-right"><a href="#"><i class="fas fa-times fa-lg"></i></a></span>
               </li>
                <% }); %>
@@ -60,7 +60,6 @@ $('button').click(function(e) {
 $("ul#taskList").sortable({
     pull: 'clone',
     animation: 150,
-    touchStartThreshold: 5,
      onEnd: function (/**Event*/evt) {
 		var itemEl = evt.item;  // dragged HTMLElement
 		evt.to;    // target list

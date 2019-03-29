@@ -1,4 +1,5 @@
 var express = require("express");
+var app         = express();
 var router = express.Router();
 var passport = require("passport");
 var User = require("../models/user");
@@ -24,7 +25,7 @@ router.post("/register", function(req, res) {
         }
         passport.authenticate("local")(req, res, function(){
             req.flash("success", "Welcome to ScratchPad " + user.username);
-            res.redirect("tasks/tasks");
+            res.redirect("projects/5c9ce5f10e60f30aea6e3caf");
         });
     });
 });
@@ -37,7 +38,7 @@ router.get("/login", function(req, res) {
 // handling login logic
 router.post("/login", passport.authenticate("local", 
     {
-        successRedirect: "/tasks",
+        successRedirect: "/projects/5c9ce5f10e60f30aea6e3caf",
         failureRedirect: "/login"
     }), function(req, res) {
 });
@@ -46,7 +47,7 @@ router.post("/login", passport.authenticate("local",
 router.get("/logout", function(req, res) {
     req.logout();
     req.flash("success", "Logged you out!");
-    res.redirect("/tasks/tasks");
+    res.redirect("/projects/5c9ce5f10e60f30aea6e3cafkli");
 });
 
 

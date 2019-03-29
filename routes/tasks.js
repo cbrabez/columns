@@ -35,11 +35,11 @@ function addDays(date, days) {
 // INDEX - show all tasks
 router.get("/",middleware.isLoggedIn, function(req, res){
     // Get all tasks from DB
-    Task.find({}).sort({listPosition: 'ascending'}).exec(function(err, allTasks) {
+    Task.find({'project.id': "5c9ce5f10e60f30aea6e3caf" }).sort({listPosition: 'ascending'}).exec(function(err, allTasks) {
         if(err){
             console.log(err);
         } else {
-            Project.find({}).exec(function(err, allProjects) {
+            Project.find({_id: { $ne: "5c9ce5f10e60f30aea6e3caf" }}).exec(function(err, allProjects) {
                 if(err){
                     console.log(err);        
                 } else {
@@ -51,7 +51,7 @@ router.get("/",middleware.isLoggedIn, function(req, res){
     });
 });
 
-//'dueDate': new RegExp('^'+getShortDate(getMonday(new Date()))+'$', "i")
+
 // weekly view
 router.get("/weeklyplan", middleware.isLoggedIn, function(req, res){
      // Get all tasks from DB

@@ -11,7 +11,7 @@ router.get("/:id", middleware.isLoggedIn, function(req, res){
         if(err){
             console.log(err);
         } else {
-           Project.find({}).exec(function(err, allProjects) {
+           Project.find({_id: { $ne: "5c9ce5f10e60f30aea6e3caf" }}).exec(function(err, allProjects) {
               if(err){
                console.log(err);     
               } else {

@@ -30,7 +30,11 @@ app.use(flash());
 app.use(require("express-session")({
     secret: "Paul und Marie sind super!",
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
+    cookie: {
+        secure: false,
+        maxAge: 3600000 //1 hour
+    }
 }));
 
 app.use(passport.initialize());

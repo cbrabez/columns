@@ -1,15 +1,18 @@
 var express     = require("express"),
     app         = express(),
+    appJS = require('./app'),
     bodyParser  = require("body-parser"),
     mongoose    = require("mongoose"),
     flash       = require("connect-flash"),
     passport    = require("passport"),
-    LocalStrategy = require("passport-local"),
+    utils = require('./public/scripts/utils'),
+    LocalStrategy = require("passport-local").Strategy,
+    RememberMeStrategy = require('passport-remember-me-extended').Strategy,
     methodOverride = require("method-override"),
-    Task     = require("./models/task"),
-    Project     = require("./models/project"),
-    User        = require("./models/user"),
-    seedDB      = require("./seeds")
+//    Task     = require("./models/task"),
+//    Project     = require("./models/project"),
+    User        = require("./models/user");
+//    seedDB      = require("./seeds")
 
 // requiring routes
 var taskRoutes       = require("./routes/tasks"),
@@ -19,6 +22,9 @@ var taskRoutes       = require("./routes/tasks"),
 // mongoose.connect(process.env.DATABASEURL);
 mongoose.connect("mongodb://cbrabez:password12345@ds117189.mlab.com:17189/columns_dev");
 
+
+
+/* */
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
@@ -39,7 +45,8 @@ app.use(require("express-session")({
 
 app.use(passport.initialize());
 app.use(passport.session());
-passport.use(new LocalStrategy(User.authenticate()));
+
+//passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 

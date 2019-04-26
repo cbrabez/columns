@@ -33,7 +33,7 @@ function addDays(date, days) {
 
 
 // INDEX - show all tasks
-router.get("/",middleware.isLoggedIn, function(req, res){
+router.get("/", middleware.ensureAuthenticated, function(req, res){
     // Get all tasks from DB
     Task.find({'project.id': "5c9ce5f10e60f30aea6e3caf" }).sort({listPosition: 'ascending'}).exec(function(err, allTasks) {
         if(err){
